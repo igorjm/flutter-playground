@@ -22,6 +22,7 @@ dependencies:
   google_sign_in:
   rxdart:
   flutter_auth_buttons:
+  flutter_facebook_login:
   flutter:
     sdk: flutter
 

@@ -2,12 +2,16 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:flutter_facebook_login/flutter_facebook_login.dart';
+
 
 class AuthService {
   // Dependencies
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final Firestore _db = Firestore.instance;
+
+  final FacebookLogin facebookLogin = new FacebookLogin();
 
   // Shared State for Widgets
   Observable<FirebaseUser> user; // firebase user
@@ -59,6 +63,20 @@ class AuthService {
   void signOut() {
     _auth.signOut();
   }
+
+  Future<FirebaseUser> facebookSignIn() async {
+    final facebookLoginResult = await facebookLogin
+        .logInWithReadPermissions(['email', 'public_profile']);
+    FacebookAccessToken myToken = facebookLoginResult.accessToken;
+
+    AuthCredential credential= FacebookAuthProvider.getCredential(accessToken: myToken.token);
+
+    FirebaseUser firebaseUser = await FirebaseAuth.instance.signInWithCredential(credential);
+
+    return firebaseUser;
+  }
+
+
 }
 
 final AuthService authService = AuthService();

@@ -6,6 +6,7 @@ import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -18,6 +19,8 @@ class _LoginPageState extends State<LoginPage> {
   String _password;
 
   GoogleSignIn googleAuth = new GoogleSignIn();
+
+  FacebookLogin fbLogin = new FacebookLogin();
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +95,7 @@ class _LoginPageState extends State<LoginPage> {
               GoogleSignInButton(
                 onPressed: () {
                   authService.googleSignIn().then((signedInUser) {
-                    UserManagement().storeNewUser(signedInUser, context);
+                    UserManagement().storeNewUser(signedInUser, context, 'google');
                   }).catchError((e) {
                     print(e);
                   });
@@ -102,7 +105,14 @@ class _LoginPageState extends State<LoginPage> {
               ),
               SizedBox(height: 5.0),
               FacebookSignInButton(
-                onPressed: () {},
+                onPressed: () {
+                  authService.facebookSignIn().then((signedInUser) {
+                    UserManagement().storeNewUser(signedInUser, context, 'facebook');
+                  }).catchError((e) {
+                    print(e);
+                  });
+                  Navigator.of(context).pushReplacementNamed('/homepage');
+                },
               ),
             ],
           ),
