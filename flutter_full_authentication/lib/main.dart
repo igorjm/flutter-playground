@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'home_page.dart';
-import 'login_page.dart';
-import 'sign_up_page.dart';
+import 'package:flutter_full_authentication/pages/home_page.dart';
+import 'package:flutter_full_authentication/pages/login_page.dart';
+import 'package:flutter_full_authentication/pages/sign_up_page.dart';
 
 void main() => runApp(MyApp());
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'services/auth.dart';
-import 'services/user_management.dart';
+import '../services/auth.dart';
+import '../services/user_management.dart';
 import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
